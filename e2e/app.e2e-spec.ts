@@ -9,6 +9,6 @@ describe('stock App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to stk!');
+    expect(page.getParagraphText()).toEqual('Welcome to Inter!');
   });
 });

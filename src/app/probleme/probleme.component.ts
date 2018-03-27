@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProblemeComponent implements OnInit {
 
+  produitForm: any;
   constructor() { }
 
   ngOnInit() {

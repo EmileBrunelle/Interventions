@@ -9,13 +9,17 @@ import { BienvenueComponent } from './bienvenue/bienvenue.component';
 import { RouterModule } from '@angular/router';
 import { ProblemeComponent } from './probleme/probleme.component';
 import { AccueilComponent } from './Accueil/accueil.component';
+import { ProduitComponent } from './produit/produit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     BienvenueComponent,
     AccueilComponent,
-    ProblemeComponent
+    ProblemeComponent,
+    ProduitComponent,
+    ReactiveFormsModule
   ],
   imports: [
     BrowserModule,

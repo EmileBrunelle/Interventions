@@ -1,3 +1,40 @@
-<p>
-  produit works!
-</p>
+<br />
+<div class='container'>
+  <div class="card">
+    <h5 class="card-header">Featured</h5>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <div class="card-text">
+        <form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="produitForm">
+          <div class="form-group row">
+            <label for="nomProduitId" class="col-sm-2 col-form-label">Nom du produit :</label>
+            <div class="col-sm-10">
+              <input
+              class="form-control"
+              id="nomProduitId"
+              type="text"
+              placeholder="Nom du produit (obligatoire)"
+              formControlName="nomProduit"
+              [ngClass] ="{'is-invalid': (produitForm.get('nomProduit').touched ||
+              produitForm.get('nomProduit').dirty) &&
+              !produitForm.get('nomProduit').valid,
+              'is-valid': (produitForm.get('nomProduit').touched ||
+              produitForm.get('nomProduit').dirty) &&
+              produitForm.get('nomProduit').valid }"
+              />
+              <span *ngIf="(produitForm.get('nomProduit').touched ||
+              produitForm.get('nomProduit').dirty) &&
+              produitForm.get('nomProduit').errors">
+                <span *ngIf="produitForm.get('nomProduit').errors.minlength">
+                  <small class="text-muted">
+                    Indiquer au moins 5 caractères.
+                  </small>
+                </span>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,11 +9,12 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class ProduitComponent implements OnInit {
 
   produitForm: FormGroup;
-  constructor(private fb : FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.produitForm = this.fb.group({
-      nomProduit: ['',[Validators.minLength(5)]]
+      nomProduit: ['', [Validators.minLength(5)]],
+      //quantite: ['', [Validators.range(1, 5)]]
     });
   }
 

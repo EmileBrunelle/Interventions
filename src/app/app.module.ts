@@ -7,6 +7,7 @@ import { BienvenueComponent } from './bienvenue/bienvenue.component';
 import { RouterModule } from '@angular/router';
 import { AccueilComponent } from './Accueil/accueil.component';
 import { ProduitComponent } from './produit/produit.component';
+import { ProblemeComponent } from './probleme/probleme.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     BienvenueComponent,
     AccueilComponent,
-    ProduitComponent
+    ProduitComponent,
+    ProblemeComponent
   ],
   imports: [
     BrowserModule,

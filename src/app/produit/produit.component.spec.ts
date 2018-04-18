@@ -29,7 +29,8 @@ describe('ProduitComponent', () => {
     let zone = component.produitForm.controls['nomProduit'];
     zone.setValue('a'.repeat(5));
     expect(zone.valid).toBeTruthy();
-  })
+  });
+  
   it('nom du produit invalide avec 2 caractères ', () => {
     let errors = {};
     let zone = component.produitForm.get('nomProduit');

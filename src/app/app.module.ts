@@ -10,6 +10,9 @@ import { RouterModule } from '@angular/router';
 import { AccueilComponent } from './Accueil/accueil.component';
 import { ProduitComponent } from './produit/produit.component';
 import { ProblemeComponent } from './probleme/probleme.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { CategorieData } from './produit/categorie-data';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { ProblemeComponent } from './probleme/probleme.component';
     AngularFontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule .forRoot(CategorieData, { delay: 1000})
   ],
   providers: [],
   bootstrap: [AppComponent]

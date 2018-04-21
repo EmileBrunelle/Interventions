@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { VerifierNombresValidator } from '../shared/nombre-validator';
 
 @Component({
   selector: 'Inter-produit',
@@ -14,7 +15,7 @@ export class ProduitComponent implements OnInit {
   ngOnInit() {
     this.produitForm = this.fb.group({
       nomProduit: ['', [Validators.minLength(5)]],
-      //quantite: ['', [Validators.range(1, 5)]]
+      quantite: ['', [VerifierNombresValidator.plage(1, 5)]]
     });
   }
 

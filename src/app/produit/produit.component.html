@@ -27,6 +27,33 @@
               </span>
             </div>
           </div>
+          <!-- Zone QUANTITE -->
+          <div class="form-group row">
+            <label for="quantiteId" class="col-md-2 col-form-label text-right">Quantité :</label>
+            <div class="col-md-10">
+              <input class="form-control"
+              id="quantiteId"
+              type="text"
+              placeholder="Quantité"
+              formControlName="quantite"
+              [ngClass]="{'is-valid': (produitForm.get('quantite').touched ||
+                    produitForm.get('quantite').dirty) &&
+                    produitForm.get('quantite').errors.plage ,
+                    'is-invalid': (produitForm.get('quantite').touched ||
+                    produitForm.get('quantite').dirty) &&
+                    !produitForm.get('quantite').errors.plage}"
+              />
+              <span class="form-text" *ngIf="(produitForm.get('quantite').touched ||
+                produitForm.get('quantite').dirty) &&
+                produitForm.get('quantite').errors">
+                    <span *ngIf="!produitForm.get('quantite').errors.plage">
+                          <small class="text-muted">
+                              Tapez un chiffre entre 1 et 5.
+                          </small>
+                    </span>
+              </span>
+            </div>
+          </div>
         </form>
       </div>
     </div>

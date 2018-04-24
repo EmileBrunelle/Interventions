@@ -13,6 +13,7 @@ import { ProblemeComponent } from './probleme/probleme.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { CategorieData } from './produit/categorie-data';
+import { CategorieService } from './produit/categorie.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { CategorieData } from './produit/categorie-data';
     HttpClientModule,
     HttpClientInMemoryWebApiModule .forRoot(CategorieData, { delay: 1000})
   ],
-  providers: [],
+  providers: [CategorieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

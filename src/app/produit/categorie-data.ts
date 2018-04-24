@@ -11,6 +11,10 @@ export class CategorieData implements InMemoryDbService {
             {
                 'id': 2,
                 'descriptionCategorie': 'Charcuteries'
+            },
+            {
+                'id': 2,
+                'descriptionCategorie': 'Fruits et légumes'
             }
         ];
         return {categories};        

@@ -55,8 +55,7 @@
                 id="noCategorieId"
                 formControlName="noCategorie">
                   <option value="">Sélectionnez une catégorie de produit</option>
-                  <option value="1">Dessert</option>
-                  <option value="2">Charcuteries</option>
+                  <option *ngFor="let cat of categoriesProduits" [value]="cat.id">{{cat.descriptionCategorie}}</option>
               </select>
             </div>
           </div>

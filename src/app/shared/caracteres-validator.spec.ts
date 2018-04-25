@@ -4,29 +4,29 @@ import { AbstractControl } from "@angular/forms";
 describe('sansEspaces Validator', () => {
     it('chaine vide est invalide', () => {
         let control = { value: '' };
-        let validator = VerifierCaracteresValidator.sansEspaces();
+        let validator = VerifierCaracteresValidator.longueurValide(3);
         let result = validator(control as AbstractControl);
-        expect(result['sansEspaces']).toBe(false);
+        expect(result['valide']).toBe(false);
     });
 
     it('chaine vide est invalide', () => {
         let control = { value: '          ' };
-        let validator = VerifierCaracteresValidator.sansEspaces();
+        let validator = VerifierCaracteresValidator.longueurValide(3);
         let result = validator(control as AbstractControl);
-        expect(result['sansEspaces']).toBe(false);
+        expect(result['valide']).toBe(false);
     });
 
     it('chaine vide est invalide', () => {
         let control = { value: 'bon matin' };
-        let validator = VerifierCaracteresValidator.sansEspaces();
+        let validator = VerifierCaracteresValidator.longueurValide(3);
         let result = validator(control as AbstractControl);
-        expect(result['sansEspaces']).toBe(true);
+        expect(result['valide']).toBe(true);
     });
 
     it('chaine vide est invalide', () => {
         let control = { value: 'bon matin   des mots   ' };
-        let validator = VerifierCaracteresValidator.sansEspaces();
+        let validator = VerifierCaracteresValidator.longueurValide(3);
         let result = validator(control as AbstractControl);
-        expect(result['sansEspaces']).toBe(true);
+        expect(result['valide']).toBe(true);
     });
 });

@@ -35,7 +35,7 @@
                 [ngClass]="{'is-invalid': (problemeForm.get('nomUtilisateur').touched ||
               problemeForm.get('nomUtilisateur').dirty) &&
               !problemeForm.get('nomUtilisateur').valid,
-              'is-valid': (problemeForm.get('prenomUtilisateur').touched ||
+              'is-valid': (problemeForm.get('nomUtilisateur').touched ||
               problemeForm.get('nomUtilisateur').dirty) &&
               problemeForm.get('nomUtilisateur').valid }" />
               <span class="form-text" *ngIf="(problemeForm.get('nomUtilisateur').touched ||
@@ -54,9 +54,9 @@
             <div class="col-sm-10">
               <select class="form-control"
                 id="typeProblemeId"
-                formControlName="noType">
+                formControlName="noProbleme">
                   <option value="">Sélectionnez un type de problème (obligatoire) ...</option>
-                  <option *ngFor="let type of typesProblemes" [value]="type.id">{{type.descriptionTypeProbleme}}</option>
+                  <option *ngFor="let probleme of typesProblemes" [value]="probleme.id">{{probleme.descriptionTypeProbleme}}</option>
               </select>
             </div>
           </div>

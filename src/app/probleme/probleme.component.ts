@@ -14,17 +14,17 @@ export class ProblemeComponent implements OnInit {
   problemeForm: FormGroup;
   typesProblemes: ITypeProbleme[];
   errorMessage: string;
-  constructor(private fb: FormBuilder, private types: TypeProblemeService) { }
+  constructor(private fb: FormBuilder, private problemes: TypeProblemeService) { }
 
   ngOnInit() {
     this.problemeForm = this.fb.group({
       prenomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.longueurValide(3)]],
       nomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.longueurValide(3)]],
-      noType: ['']
+      noProbleme: ['']
     });
 
-    this.problemeForm.obtenirTypesProblemes()
+    this.problemes.obtenirTypesProbleme()
     .subscribe(probleme => this.typesProblemes = probleme,
-              error => this.errorMessage = <any>error);
+              error => this.errorMessage = <any>error);              
   }
 }

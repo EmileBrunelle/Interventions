@@ -32,7 +32,7 @@
             <label for="nomUtilisateur" class="col-md-2 col-form-label text-right">Nom : </label>
             <div class="col-sm-10">
               <input class="form-control" id="nomUtilisateur" type="text" placeholder="Votre nom (obligatoire)" formControlName="nomUtilisateur"
-              [ngClass]="{'is-invalid': (problemeForm.get('nomUtilisateur').touched ||
+                [ngClass]="{'is-invalid': (problemeForm.get('nomUtilisateur').touched ||
               problemeForm.get('nomUtilisateur').dirty) &&
               !problemeForm.get('nomUtilisateur').errors.valide,
               'is-valid': (problemeForm.get('nomUtilisateur').touched ||
@@ -53,12 +53,25 @@
           <div class="form-group row">
             <label for="typeProblemeId" class="col-sm-2 col-form-label text-right">Type de problème :</label>
             <div class="col-sm-10">
-              <select class="form-control"
-                id="typeProblemeId"
-                formControlName="noProbleme">
-                  <option value="">Sélectionnez un type de problème (obligatoire) ...</option>
-                  <option *ngFor="let probleme of typesProblemes" [value]="probleme.id">{{probleme.descriptionTypeProbleme}}</option>
+              <select class="form-control" id="typeProblemeId" formControlName="noProbleme">
+                <option value="">Sélectionnez un type de problème (obligatoire) ...</option>
+                <option *ngFor="let probleme of typesProblemes" [value]="probleme.id">{{probleme.descriptionTypeProbleme}}</option>
               </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <legend class="col-md-2 col-form-label text-right">Notifications :</legend>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nePasNotifier" value="NePasNotifier">
+              <label class="form-check-label" for="nePasNotifier">Ne pas me notifier</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="parCourriel" value="ParCourriel">
+              <label class="form-check-label" for="parCourriel">Par courriel</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="parSMS" value="ParCourriel">
+              <label class="form-check-label" for="parSMS">Par SMS</label>
             </div>
           </div>
         </form>

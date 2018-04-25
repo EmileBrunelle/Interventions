@@ -32,16 +32,17 @@
             <label for="nomUtilisateur" class="col-md-2 col-form-label text-right">Nom : </label>
             <div class="col-sm-10">
               <input class="form-control" id="nomUtilisateur" type="text" placeholder="Votre nom (obligatoire)" formControlName="nomUtilisateur"
-                [ngClass]="{'is-invalid': (problemeForm.get('nomUtilisateur').touched ||
+              [ngClass]="{'is-invalid': (problemeForm.get('nomUtilisateur').touched ||
               problemeForm.get('nomUtilisateur').dirty) &&
-              !problemeForm.get('nomUtilisateur').valid,
+              !problemeForm.get('nomUtilisateur').errors.valide,
               'is-valid': (problemeForm.get('nomUtilisateur').touched ||
               problemeForm.get('nomUtilisateur').dirty) &&
-              problemeForm.get('nomUtilisateur').valid }" />
+              problemeForm.get('nomUtilisateur').errors.valide }" />
+
               <span class="form-text" *ngIf="(problemeForm.get('nomUtilisateur').touched ||
                     problemeForm.get('nomUtilisateur').dirty) &&
                     problemeForm.get('nomUtilisateur').errors">
-                <span *ngIf="!problemeForm.get('nomUtilisateur').errors.minlength">
+                <span *ngIf="!problemeForm.get('nomUtilisateur').errors.valide">
                   <small class="text-muted">
                     Indiquez au moins 3 caractères.
                   </small>

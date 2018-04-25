@@ -1,7 +1,7 @@
 import { VerifierCaracteresValidator } from "./caracteres-validator";
 import { AbstractControl } from "@angular/forms";
 
-describe('sansEspaces Validator', () => {
+describe('longueurValide Validator', () => {
     it('chaine vide est invalide', () => {
         let control = { value: '' };
         let validator = VerifierCaracteresValidator.longueurValide(3);

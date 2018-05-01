@@ -34,11 +34,16 @@ export class ProblemeComponent implements OnInit {
 
   gestionNotifications(typeNotification: string): void {
     const courrielControl = this.problemeForm.get('notificationGroup.mode');
+    const courrielValideControl = this.problemeForm.get('notificationGroup.mode');
     const smsControl = this.problemeForm.get('notificationGroup.mode');
 
     courrielControl.clearValidators();
     courrielControl.reset();
     courrielControl.disable();
+
+    courrielValideControl.clearValidators();
+    courrielValideControl.reset();
+    courrielValideControl.disable();
 
     smsControl.clearValidators();
     smsControl.reset();
@@ -46,12 +51,13 @@ export class ProblemeComponent implements OnInit {
 
     if (typeNotification === 'ParCourriel') {
       courrielControl.enable();
-      courrielControl.setValidators([Validators.required]);
+      courrielControl.setValidators([Validators.required, Validators.email]);
     } else if (typeNotification === 'ParSMS') {
       smsControl.enable();
-      smsControl.setValidators([Validators.required]);
+      smsControl.setValidators([Validators.required, Validators.pattern('[0-9]+'),Validators.maxLength(10),Validators.minLength(10)]);
     }
     courrielControl.updateValueAndValidity();
+    courrielValideControl.updateValueAndValidity();
     smsControl.updateValueAndValidity();
   }
 }

@@ -40,17 +40,46 @@ describe('ProblemeComponent', () => {
     expect(zone.valid).toBeTruthy();
   });
 
-  it('Zone SMS est désactivée si Ne pas notifier ou courriel', () => {
-    component.gestionNotifications('ParCourriel');
-
-    let zone = component.problemeForm.get('notificationGroup.modeNotification');
+  it('Zone SMS est désactivée si Ne pas notifier', () => {
+    component.gestionNotifications('nePasNotifier');
+    let zone = component.problemeForm.get('telephone');
     expect(zone.status).toEqual('DISABLED');
   });
 
-  it('Zone Courriel est désactivée si Ne pas notifier ou SMS', () => {
-    component.gestionNotifications('ParSMS');
-
-    let zone = component.problemeForm.get('notificationGroup.modeNotification');
+  it('Zone Courriel est désactivée si Ne pas notifier', () => {
+    component.gestionNotifications('pasnotification');
+    let zone = component.problemeForm.get('courrielGroup');
     expect(zone.status).toEqual('DISABLED');
   });
+
+  it('Zone Courriel est désactivée si SMS', () => {
+    component.gestionNotifications('messageTexte');
+    let zone = component.problemeForm.get('courrielGroup');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone SMS est désactivée si Courriel', () => {
+    component.gestionNotifications('courriel');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone Courriel est activée si Courriel', () => {
+    component.gestionNotifications('courriel');
+    let zone = component.problemeForm.get('courrielGroup');
+    expect(zone.status).not.toEqual('DISABLED');
+  });
+
+  it('Zone SMS est activée si SMS', () => {
+    component.gestionNotifications('messageTexte');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.status).not.toEqual('DISABLED');
+  });
+
+  it('Zone ADRESSE COURRIEL est invalide sans valeur quand notifier par courriel', () => {
+    let zone = component.problemeForm.get('courriel');
+    zone.setValue('');
+    expect(zone.valid).toBeFalsy();
+  });
+
 });

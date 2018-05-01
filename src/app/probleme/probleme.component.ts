@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { VerifierCaracteresValidator } from '../shared/caracteres-validator';
 import { TypeProblemeService } from './typeprobleme.service';
 import { ITypeProbleme } from './typeprobleme';
+import { emailMatcherValidator } from '../shared/emailMatcher-validator';
 
 @Component({
   selector: 'Inter-probleme',
@@ -20,44 +21,58 @@ export class ProblemeComponent implements OnInit {
     this.problemeForm = this.fb.group({
       prenomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.longueurValide(3)]],
       nomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.longueurValide(3)]],
-      noProbleme: [''],
-      notifier:['Aucun'],
-      notificationGroup: this.fb.group({
-        modeNotification: [{value: ''}]
-      })
+      noProbleme: ['', Validators.required],
+      notification:['pasnotification'],
+      courrielGroup: this.fb.group({
+        courriel: [{value: '', disabled:true}],
+        courrielConfirmation: [{value: '', disabled:true}],
+      }),
+      telephone: [{value: '', disabled:true}]
     });
 
     this.problemes.obtenirTypesProbleme()
     .subscribe(probleme => this.typesProblemes = probleme,
-              error => this.errorMessage = <any>error);              
+              error => this.errorMessage = <any>error);
+
+    this.problemeForm.get('notification').valueChanges.subscribe(value=>this.gestionNotifications(value));
   }
 
   gestionNotifications(typeNotification: string): void {
-    const courrielControl = this.problemeForm.get('notificationGroup.mode');
-    const courrielValideControl = this.problemeForm.get('notificationGroup.mode');
-    const smsControl = this.problemeForm.get('notificationGroup.mode');
 
-    courrielControl.clearValidators();
-    courrielControl.reset();
-    courrielControl.disable();
+    const courrielGroupProblemeControl = this.problemeForm.get('courrielGroup');
+    const courrielProblemeControl = this.problemeForm.get('courrielGroup.courriel');
+    const courrielConfirmationProblemeControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
+    const telephoneProblemeControl = this.problemeForm.get('telephone');
 
-    courrielValideControl.clearValidators();
-    courrielValideControl.reset();
-    courrielValideControl.disable();
+    courrielProblemeControl.clearValidators();
+    courrielProblemeControl.reset();
+    courrielProblemeControl.disable();
 
-    smsControl.clearValidators();
-    smsControl.reset();
-    smsControl.disable();
+    courrielConfirmationProblemeControl.clearValidators();
+    courrielConfirmationProblemeControl.reset();
+    courrielConfirmationProblemeControl.disable();
 
-    if (typeNotification === 'ParCourriel') {
-      courrielControl.enable();
-      courrielControl.setValidators([Validators.required, Validators.email]);
-    } else if (typeNotification === 'ParSMS') {
-      smsControl.enable();
-      smsControl.setValidators([Validators.required, Validators.pattern('[0-9]+'),Validators.maxLength(10),Validators.minLength(10)]);
+    telephoneProblemeControl.clearValidators();
+    telephoneProblemeControl.reset();
+    telephoneProblemeControl.disable();
+
+    courrielGroupProblemeControl.clearValidators();
+
+    if (typeNotification === 'courriel') {
+      courrielProblemeControl.enable();
+      courrielProblemeControl.setValidators([Validators.required,Validators.email]);
+      courrielConfirmationProblemeControl.enable();
+      courrielConfirmationProblemeControl.setValidators([Validators.required,Validators.email]);
+      courrielGroupProblemeControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
+
+    } else if (typeNotification ==='messageTexte') {
+      telephoneProblemeControl.enable();
+      telephoneProblemeControl.setValidators([Validators.required,Validators.pattern('[0-9]+'),Validators.maxLength(10),Validators.minLength(10)]);
     }
-    courrielControl.updateValueAndValidity();
-    courrielValideControl.updateValueAndValidity();
-    smsControl.updateValueAndValidity();
+
+    courrielProblemeControl.updateValueAndValidity();
+    telephoneProblemeControl.updateValueAndValidity();
+    courrielConfirmationProblemeControl.updateValueAndValidity();
+    courrielGroupProblemeControl.updateValueAndValidity();
   }
 }

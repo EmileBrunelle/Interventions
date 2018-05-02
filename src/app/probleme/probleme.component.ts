@@ -60,9 +60,9 @@ export class ProblemeComponent implements OnInit {
 
     if (typeNotification === 'courriel') {
       courrielProblemeControl.enable();
-      courrielProblemeControl.setValidators([Validators.required,Validators.email]);
+      courrielProblemeControl.setValidators([Validators.required, Validators.email]);
       courrielConfirmationProblemeControl.enable();
-      courrielConfirmationProblemeControl.setValidators([Validators.required,Validators.email]);
+      courrielConfirmationProblemeControl.setValidators([Validators.required, Validators.email]);
       courrielGroupProblemeControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
 
     } else if (typeNotification ==='messageTexte') {

@@ -7,7 +7,7 @@ export class emailMatcherValidator{
            if (!c['controls'].courriel.value || !c['controls'].courrielConfirmation.value) {
                return null;
            }
-           return c['controls'].courriel.value === c['controls'].courrielConfirmation.value ? null : { match: true };
+           return c['controls'].courriel.value === c['controls'].courrielConfirmation.value ? null : { courrielConfirmation: true };
         };
     }
 }

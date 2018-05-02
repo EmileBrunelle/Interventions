@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AccueilComponent } from './Accueil/accueil.component';
 import { ProblemeComponent } from './probleme/probleme.component';
 import { HttpClientModule } from '@angular/common/http';
-import {  InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TypeProblemeService } from './probleme/typeprobleme.service';
 import { TypeProblemeData } from './probleme/typeprobleme-data';
 

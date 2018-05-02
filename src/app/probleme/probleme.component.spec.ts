@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProblemeComponent } from './probleme.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TypeProblemeService } from './typeprobleme.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -11,7 +12,7 @@ describe('ProblemeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, HttpClientModule],
+      imports: [ReactiveFormsModule, AngularFontAwesomeModule, HttpClientModule],
       declarations: [ ProblemeComponent ],
       providers:[TypeProblemeService]
     })
@@ -29,15 +30,19 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zone PRÉNOM invalide avec 2 caractères', () => {
-    let zone = component.problemeForm.controls['prenomUtilisateur'];
+    let errors = {};
+    let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(2));
-    expect(zone.valid).toBeFalsy();
+    errors = zone.errors || {};
+    expect(errors['longueurValide']).toBe(false);
   });
 
   it('Zone PRÉNOM valide avec 3 caractères', () => {
-    let zone = component.problemeForm.controls['prenomUtilisateur'];
+    let errors = {};
+    let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(3));
-    expect(zone.valid).toBeTruthy();
+    errors = zone.errors || {};
+    expect(errors['longueurValide']).toBeUndefined();
   });
 
   it('Zone SMS est désactivée si Ne pas notifier', () => {

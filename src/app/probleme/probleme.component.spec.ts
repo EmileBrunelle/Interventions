@@ -28,10 +28,10 @@ describe('ProblemeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Zone PRÉNOM invalide avec 2 caractères', () => {
+  it('Zone PRÉNOM valide avec 2 caractères', () => {
     let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(2));
-    expect(zone.valid).toBeFalsy();
+    expect(zone.valid).toBeTruthy();
   });
 
   it('Zone PRÉNOM valide avec 3 caractères', () => {
@@ -39,7 +39,7 @@ describe('ProblemeComponent', () => {
     let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(3));
     errors = zone.errors || {};
-    expect(errors['longueurValide']).toBeUndefined();
+    expect(errors['sansEspaces']).toBeUndefined();
   });
 
   it('Zone PRÉNOM valide avec 50 caractères', () => {
@@ -47,7 +47,7 @@ describe('ProblemeComponent', () => {
     let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(50));
     errors = zone.errors || {};
-    expect(errors['longueurValide']).toBeUndefined();
+    expect(errors['sansEspaces']).toBeUndefined();
   });
 
   it('Zone TELEPHONE est désactivée quand notifier par courriel', () => {

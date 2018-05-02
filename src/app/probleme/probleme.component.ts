@@ -19,22 +19,25 @@ export class ProblemeComponent implements OnInit {
 
   ngOnInit() {
     this.problemeForm = this.fb.group({
-      prenomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.longueurValide(3)]],
-      nomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.longueurValide(3)]],
+      prenomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.sansEspaces()]],
+      nomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.sansEspaces()]],
       noProbleme: ['', Validators.required],
-      notification:['pasnotification'],
+      notification: ['pasnotification'],
       courrielGroup: this.fb.group({
-        courriel: [{value: '', disabled:true}],
-        courrielConfirmation: [{value: '', disabled:true}],
+        courriel: [{ value: '', disabled: true }],
+        courrielConfirmation: [{ value: '', disabled: true }],
       }),
-      telephone: [{value: '', disabled:true}]
+      telephone: [{ value: '', disabled: true }],
+      descriptionProbleme: ['', [Validators.required, Validators.minLength(5)]],
+      noUnite: '',
+      dateProbleme: { value: Date(), disabled: true }
     });
 
     this.problemes.obtenirTypesProbleme()
-    .subscribe(probleme => this.typesProblemes = probleme,
-              error => this.errorMessage = <any>error);
+      .subscribe(probleme => this.typesProblemes = probleme,
+        error => this.errorMessage = <any>error);
 
-    this.problemeForm.get('notification').valueChanges.subscribe(value=>this.gestionNotifications(value));
+    this.problemeForm.get('notification').valueChanges.subscribe(value => this.gestionNotifications(value));
   }
 
   gestionNotifications(typeNotification: string): void {
@@ -67,7 +70,7 @@ export class ProblemeComponent implements OnInit {
 
     } else if (typeNotification === 'messageTexte') {
       telephoneProblemeControl.enable();
-      telephoneProblemeControl.setValidators([Validators.required,Validators.pattern('[0-9]+'),Validators.maxLength(10),Validators.minLength(10)]);
+      telephoneProblemeControl.setValidators([Validators.required, Validators.pattern('[0-9]+'), Validators.maxLength(10), Validators.minLength(10)]);
     }
 
     courrielProblemeControl.updateValueAndValidity();

@@ -27,7 +27,7 @@ import { TypeProblemeData } from './probleme/typeprobleme-data';
     AngularFontAwesomeModule,
     HttpClientModule
   ],
-  providers: [TypeProblemeService],
+  providers: [HttpClientModule, TypeProblemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

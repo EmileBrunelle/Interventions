@@ -28,10 +28,10 @@ describe('ProblemeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Zone PRÉNOM valide avec 2 caractères', () => {
+  it('Zone PRÉNOM invalide avec 2 caractères', () => {
     let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(2));
-    expect(zone.valid).toBeTruthy();
+    expect(zone.valid).toBeFalsy();
   });
 
   it('Zone PRÉNOM valide avec 3 caractères', () => {
@@ -39,7 +39,7 @@ describe('ProblemeComponent', () => {
     let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(3));
     errors = zone.errors || {};
-    expect(errors['sansEspaces']).toBeUndefined();
+    expect(errors['chaine']).toBeUndefined();
   });
 
   it('Zone PRÉNOM valide avec 50 caractères', () => {
@@ -47,7 +47,7 @@ describe('ProblemeComponent', () => {
     let zone = component.problemeForm.get('prenomUtilisateur');
     zone.setValue('a'.repeat(50));
     errors = zone.errors || {};
-    expect(errors['sansEspaces']).toBeUndefined();
+    expect(errors['chaine']).toBeUndefined();
   });
 
   it('Zone TELEPHONE est désactivée quand notifier par courriel', () => {
@@ -63,40 +63,40 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zone Courriel est activée si Courriel', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let zone = component.problemeForm.get('courrielGroup');
     expect(zone.status).not.toEqual('DISABLED');
   });
 
   it('Zone SMS est activée si SMS', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let zone = component.problemeForm.get('telephone');
     expect(zone.status).not.toEqual('DISABLED');
   });
 
   it('Zone ADRESSE COURRIEL est invalide sans valeur quand notifier par courriel', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let zone = component.problemeForm.get('courrielGroup.courriel');
     zone.setValue('');
     expect(zone.valid).toBeFalsy();
   });
 
   it('Zone VALIDER COURRIEL est invalide sans valeur quand notifier par courriel', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
     zone.setValue('');
     expect(zone.valid).toBeFalsy();
   });
 
   it('Zone ADRESSE COURRIEL est invalide avec un format non confirme', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let zone = component.problemeForm.get('courrielGroup.courriel');
     zone.setValue('[a-z0-9._%+-]+@[a-z0-9.-]+');
     expect(zone.valid).toBeFalsy();
   });
 
   it('Zone ADRESSE COURRIEL sans valeur et Zone CONFIRMER COURRIEL avec valeur valide retourne null', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let errors = {};
     let zoneCourriel = component.problemeForm.get('courrielGroup.courriel');
     let zoneValidation = component.problemeForm.get('courrielGroup.courrielConfirmation');
@@ -108,7 +108,7 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zone ADRESSE COURRIEL avec valeur valide et Zone CONFIRMER COURRIEL sans valeur retourne null', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let errors = {};
     let zoneCourriel = component.problemeForm.get('courrielGroup.courriel');
     let zoneValidation = component.problemeForm.get('courrielGroup.courrielConfirmation');
@@ -120,7 +120,7 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zones ADRESSE COURRIEL et CONFIRMER COURRIEL sont invalides si les valeurs sont différentes quand notifier par courriel', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let errors = {};
     let zoneCourriel = component.problemeForm.get('courrielGroup.courriel');
     let zoneValidation = component.problemeForm.get('courrielGroup.courrielConfirmation');
@@ -132,7 +132,7 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zones ADRESSE COURRIEL et CONFIRMER COURRIEL sont valides si les valeurs sont identiques quand notifier par courriel', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let errors = {};
     let zoneCourriel = component.problemeForm.get('courrielGroup.courriel');
     let zoneValidation = component.problemeForm.get('courrielGroup.courrielConfirmation');
@@ -144,7 +144,7 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zones ADRESSE COURRIEL et CONFIRMER COURRIEL sont valides si les valeurs sont identiques quand notifier par courriel', () => {
-    component.gestionNotifications('courriel');
+    component.gestionNotifications('NotifierCourriel');
     let errors = {};
     let zoneCourriel = component.problemeForm.get('courrielGroup.courriel');
     let zoneValidation = component.problemeForm.get('courrielGroup.courrielConfirmation');
@@ -156,32 +156,32 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zone TELEPHONE est désactivée si Ne pas notifier', () => {
-    component.gestionNotifications('nePasNotifier');
+    component.gestionNotifications('pasNotification');
     let zone = component.problemeForm.get('telephone');
     expect(zone.status).toEqual('DISABLED');
   });
 
   it('Zone ADRESSE COURRIEL est désactivée quand notifier par messagerie texte', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let zone = component.problemeForm.get('courrielGroup.courriel');
     expect(zone.status).toEqual('DISABLED');
   });
 
   it('Zone CONFIRMER COURRIEL est désactivée quand notifier par messagerie texte', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
     expect(zone.status).toEqual('DISABLED');
   });
 
   it('Zone TELEPHONE est invalide sans valeur quand notifier par messagerie texte ', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let zone = component.problemeForm.get('telephone');
     zone.setValue('');
     expect(zone.valid).toBeFalsy();
   });
 
   it('Zone TELEPHONE est invalide avec un format non confirme quand notifier par messagerie texte', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let errors = {};
     let zone = component.problemeForm.get('telephone');
     zone.setValue('abc');
@@ -190,7 +190,7 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zone TELEPHONE est invalide avec 9 chiffres consécutifs quand notifier par messagerie texte', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let errors = {};
     let zone = component.problemeForm.get('telephone');
     zone.setValue('9'.repeat(9));
@@ -199,7 +199,7 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zone TELEPHONE est invalide avec 11 chiffres consécutifs quand notifier par messagerie texte', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let errors = {};
     let zone = component.problemeForm.get('telephone');
     zone.setValue('1'.repeat(11));
@@ -208,7 +208,7 @@ describe('ProblemeComponent', () => {
   });
 
   it('Zone TELEPHONE est valide avec 10 chiffres consécutifs quand notifier par messagerie texte', () => {
-    component.gestionNotifications('messageTexte');
+    component.gestionNotifications('NotifierTelephone');
     let zone = component.problemeForm.get('telephone');
     zone.setValue('1'.repeat(10));
     expect(zone.valid).toBeTruthy();

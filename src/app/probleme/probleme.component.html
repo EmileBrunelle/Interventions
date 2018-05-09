@@ -12,16 +12,19 @@
               <input class="form-control" id="prenomUtilisateur" type="text" placeholder="Votre prénom (obligatoire)" formControlName="prenomUtilisateur"
                 [ngClass]="{'is-invalid': (problemeForm.get('prenomUtilisateur').touched ||
               problemeForm.get('prenomUtilisateur').dirty) &&
-              !problemeForm.get('prenomUtilisateur').errors.valide,
+              problemeForm.get('prenomUtilisateur').errors,
               'is-valid': (problemeForm.get('prenomUtilisateur').touched ||
               problemeForm.get('prenomUtilisateur').dirty) &&
-              problemeForm.get('prenomUtilisateur').errors.valide }" />
+              !problemeForm.get('prenomUtilisateur').errors }" />
 
               <span class="form-text" *ngIf="(problemeForm.get('prenomUtilisateur').touched ||
                     problemeForm.get('prenomUtilisateur').dirty) &&
                     problemeForm.get('prenomUtilisateur').errors">
-                <span *ngIf="!problemeForm.get('prenomUtilisateur').errors.valide">
+                <span *ngIf="!problemeForm.get('prenomUtilisateur').errors.longueurMinimum">
                   <small class="text-muted">Indiquez au moins 3 caractères.</small>
+                </span>
+                <span *ngIf="!problemeForm.get('prenomUtilisateur').errors.sansEspaces">
+                  <small class="text-muted">Veuillez saisir votre prénom.</small>
                 </span>
               </span>
             </div>
@@ -32,16 +35,19 @@
               <input class="form-control" id="nomUtilisateur" type="text" placeholder="Votre nom (obligatoire)" formControlName="nomUtilisateur"
                 [ngClass]="{'is-invalid': (problemeForm.get('nomUtilisateur').touched ||
               problemeForm.get('nomUtilisateur').dirty) &&
-              !problemeForm.get('nomUtilisateur').errors.valide,
+              problemeForm.get('nomUtilisateur').errors,
               'is-valid': (problemeForm.get('nomUtilisateur').touched ||
               problemeForm.get('nomUtilisateur').dirty) &&
-              problemeForm.get('nomUtilisateur').errors.valide }" />
+              !problemeForm.get('nomUtilisateur').errors }" />
 
               <span class="form-text" *ngIf="(problemeForm.get('nomUtilisateur').touched ||
                     problemeForm.get('nomUtilisateur').dirty) &&
                     problemeForm.get('nomUtilisateur').errors">
-                <span *ngIf="!problemeForm.get('nomUtilisateur').errors.valide">
+                <span *ngIf="!problemeForm.get('nomUtilisateur').errors.longueurMinimum">
                   <small class="text-muted">Indiquez au moins 3 caractères.</small>
+                </span>
+                <span *ngIf="!problemeForm.get('nomUtilisateur').errors.sansEspaces">
+                  <small class="text-muted">Veuillez saisir votre nom.</small>
                 </span>
               </span>
             </div>
@@ -66,15 +72,15 @@
             <div class="col-md-2"></div>
             <div class="col-md-10">
               <label class="radio-inline">
-                <input type="radio" value="pasnotification" id="pasnotification" formControlName="notification">&nbsp;Ne pas me notifier
+                <input type="radio" value="pasnotification" id="notificationId" formControlName="notification">&nbsp;Ne pas me notifier
               </label>
               &nbsp;&nbsp;&nbsp;
               <label class="radio-inline">
-                <input type="radio" value="courriel" id="courriel" formControlName="notification">&nbsp;Par courriel
+                <input type="radio" value="NotifierCourriel" id="notificationId" formControlName="notification">&nbsp;Par courriel
               </label>
               &nbsp;&nbsp;&nbsp;
               <label class="radio-inline">
-                <input type="radio" value="messageTexte" id="messageTexte" formControlName="notification">&nbsp;Par message texte
+                <input type="radio" value="NotifierTelephone" id="notificationId" formControlName="notification">&nbsp;Par message texte
               </label>
             </div>
           </div>

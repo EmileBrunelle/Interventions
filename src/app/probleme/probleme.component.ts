@@ -19,8 +19,8 @@ export class ProblemeComponent implements OnInit {
 
   ngOnInit() {
     this.problemeForm = this.fb.group({
-      prenomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.sansEspaces()]],
-      nomUtilisateur: ['', [Validators.required, VerifierCaracteresValidator.sansEspaces()]],
+      prenomUtilisateur: ['', [VerifierCaracteresValidator.sansEspaces(), VerifierCaracteresValidator.longueurMinimum(3)]],
+      nomUtilisateur: ['', [VerifierCaracteresValidator.sansEspaces(), VerifierCaracteresValidator.longueurMinimum(3)]],
       noProbleme: ['', Validators.required],
       notification: ['pasnotification'],
       courrielGroup: this.fb.group({
@@ -61,14 +61,14 @@ export class ProblemeComponent implements OnInit {
 
     courrielGroupProblemeControl.clearValidators();
 
-    if (typeNotification === 'courriel') {
+    if (typeNotification === 'NotifierCourriel') {
       courrielProblemeControl.enable();
       courrielProblemeControl.setValidators([Validators.required, Validators.email]);
       courrielConfirmationProblemeControl.enable();
       courrielConfirmationProblemeControl.setValidators([Validators.required, Validators.email]);
       courrielGroupProblemeControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
 
-    } else if (typeNotification === 'messageTexte') {
+    } else if (typeNotification === 'NotifierTelephone') {
       telephoneProblemeControl.enable();
       telephoneProblemeControl.setValidators([Validators.required, Validators.pattern('[0-9]+'), Validators.maxLength(10), Validators.minLength(10)]);
     }

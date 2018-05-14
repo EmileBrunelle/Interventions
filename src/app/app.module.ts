@@ -9,9 +9,9 @@ import { RouterModule } from '@angular/router';
 import { AccueilComponent } from './Accueil/accueil.component';
 import { ProblemeComponent } from './probleme/probleme.component';
 import { HttpClientModule } from '@angular/common/http';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TypeProblemeService } from './probleme/typeprobleme.service';
 import { TypeProblemeData } from './probleme/typeprobleme-data';
+import { ProblemeService } from './probleme/probleme.service';
 
 @NgModule({
   declarations: [
@@ -21,13 +21,12 @@ import { TypeProblemeData } from './probleme/typeprobleme-data';
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,  //Si absent erreur ERROR Error: Uncaught (in promise): Error: StaticInjectorError(AppModule)[ProduitComponent -> FormBuilder]: 
-    InMemoryWebApiModule.forRoot(TypeProblemeData, { delay: 1000 }),    
+    ReactiveFormsModule,  //Si absent erreur ERROR Error: Uncaught (in promise): Error: StaticInjectorError(AppModule)[ProduitComponent -> FormBuilder]:
     AppRoutingModule,
     AngularFontAwesomeModule,
     HttpClientModule
   ],
-  providers: [HttpClientModule, TypeProblemeService],
+  providers: [HttpClientModule, TypeProblemeService, ProblemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

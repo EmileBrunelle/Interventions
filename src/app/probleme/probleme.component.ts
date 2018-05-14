@@ -4,6 +4,8 @@ import { VerifierCaracteresValidator } from '../shared/caracteres-validator';
 import { TypeProblemeService } from './typeprobleme.service';
 import { ITypeProbleme } from './typeprobleme';
 import { emailMatcherValidator } from '../shared/emailMatcher-validator';
+import { IProbleme } from './probleme';
+import { ProblemeService } from './probleme.service';
 
 @Component({
   selector: 'Inter-probleme',
@@ -15,7 +17,11 @@ export class ProblemeComponent implements OnInit {
   problemeForm: FormGroup;
   typesProblemes: ITypeProbleme[];
   errorMessage: string;
-  constructor(private fb: FormBuilder, private problemes: TypeProblemeService) { }
+
+  probleme: IProbleme;
+  messageSauvegarde: string;
+
+  constructor(private fb: FormBuilder, private problemes: TypeProblemeService, private problemeService: ProblemeService) { }
 
   ngOnInit() {
     this.problemeForm = this.fb.group({
@@ -77,5 +83,23 @@ export class ProblemeComponent implements OnInit {
     telephoneProblemeControl.updateValueAndValidity();
     courrielConfirmationProblemeControl.updateValueAndValidity();
     courrielGroupProblemeControl.updateValueAndValidity();
+  }
+
+  save(): void {
+    if (this.problemeForm.dirty && this.problemeForm.valid) {
+      this.probleme = this.problemeForm.value;
+      // Affecter les valeurs qui proviennent du fg le plus interne.
+      this.probleme.DateProbleme = this.problemeForm.get('dateProbleme').value;
+      this.problemeService.saveProbleme(this.probleme)
+        .subscribe( // on s'abonne car on a un retour du serveur à un moment donné avec la callback fonction
+          () => this.onSaveComplete(),  // Fonction callback
+          (error: any) => this.errorMessage = <any>error
+        );
+    }
+  }
+
+  onSaveComplete(): void {
+    this.problemeForm.reset();  // Pour remettre Dirty à false.  Autrement le Route Guard va dire que le formulaire n'est pas sauvegardé
+    this.messageSauvegarde = 'Votre demande a bien été sauvegardée. Nous vous remercions.';
   }
 }

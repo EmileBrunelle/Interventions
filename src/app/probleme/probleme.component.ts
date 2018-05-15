@@ -31,13 +31,13 @@ export class ProblemeComponent implements OnInit {
       notification: ['pasnotification'],
 
       courrielGroup: this.fb.group({
-        courriel: [{ value: '', disabled: true }],
-        courrielConfirmation: [{ value: '', disabled: true }],
+        courriel: [{ value: null, disabled: true }],
+        courrielConfirmation: [{ value: null, disabled: true }],
       }),
       
-      telephone: [{ value: '', disabled: true }],
+      telephone: [{ value: null, disabled: true }],
       descriptionProbleme: ['', [Validators.required, Validators.minLength(5)]],
-      noUnite: '',
+      noUnite:'',
       dateProbleme: { value: Date(), disabled: true }
     });
 
@@ -67,7 +67,7 @@ export class ProblemeComponent implements OnInit {
     telephoneProblemeControl.reset();
     telephoneProblemeControl.disable();
 
-    courrielGroupProblemeControl.clearValidators();
+    
 
     if (typeNotification === 'NotifierCourriel') {
       courrielProblemeControl.enable();
@@ -105,5 +105,6 @@ export class ProblemeComponent implements OnInit {
   onSaveComplete(): void {
     this.problemeForm.reset();  // Pour remettre Dirty à false.  Autrement le Route Guard va dire que le formulaire n'est pas sauvegardé
     this.messageSauvegarde = 'Votre demande a bien été sauvegardée. Nous vous remercions.';
+    this.ngOnInit();
   }
 }

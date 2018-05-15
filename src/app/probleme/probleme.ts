@@ -1,13 +1,13 @@
 export interface IProbleme {
     id: number,
-    DateProbleme: Date,
+    prenomUtilisateur: string,
+    nomUtilisateur: string,
+    noProbleme: number,
+    notification: string,
     courriel?: string,
     courrielConfirmation?: string,
+    telephone?: string,
     descriptionProbleme: string,
-    noProbleme: number,
     noUnite?: string,
-    nomUtilisateur: string,
-    notification: string,
-    prenomUtilisateur: string,
-    telephone?: string
+    DateProbleme: Date
 }

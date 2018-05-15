@@ -29,10 +29,12 @@ export class ProblemeComponent implements OnInit {
       nomUtilisateur: ['', [VerifierCaracteresValidator.sansEspaces(), VerifierCaracteresValidator.longueurMinimum(3)]],
       noProbleme: ['', Validators.required],
       notification: ['pasnotification'],
+
       courrielGroup: this.fb.group({
         courriel: [{ value: '', disabled: true }],
         courrielConfirmation: [{ value: '', disabled: true }],
       }),
+      
       telephone: [{ value: '', disabled: true }],
       descriptionProbleme: ['', [Validators.required, Validators.minLength(5)]],
       noUnite: '',
@@ -89,7 +91,9 @@ export class ProblemeComponent implements OnInit {
     if (this.problemeForm.dirty && this.problemeForm.valid) {
       this.probleme = this.problemeForm.value;
       // Affecter les valeurs qui proviennent du fg le plus interne.
-      this.probleme.DateProbleme = this.problemeForm.get('dateProbleme').value;
+      this.probleme.courriel = this.problemeForm.get('courrielGroup.courriel').value;
+      this.probleme.courrielConfirmation = this.problemeForm.get('courrielGroup.courrielConfirmation').value;
+      this.probleme.DateProbleme = new Date();
       this.problemeService.saveProbleme(this.probleme)
         .subscribe( // on s'abonne car on a un retour du serveur à un moment donné avec la callback fonction
           () => this.onSaveComplete(),  // Fonction callback
